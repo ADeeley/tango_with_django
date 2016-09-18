@@ -17,7 +17,7 @@ def populate():
          "url": "http://www.korokitthakis.net/tutorials/python/"}]
          
     django_pages = [
-        {"title: Official Django Tutorial",
+        {"title": "Official Django Tutorial",
          "url": "http://docs.djangoproject.com/en/1.9/intro/tutorial101/"},
         {"title": "Django Rocks",
          "url": "http://www.djangorocks.com/"},
@@ -38,6 +38,10 @@ def populate():
         c = add_cat(cat)
         for p in cat_data["pages"]:
             add_page(c, p["title"], p["url"])
+            
+    for c in Category.objects.all():
+        for p in Page.objects.filter(category=c):
+            print("- {0} - {1}".format(str(c), str(p)))
             
 def add_page(cat, title, url, views=0):
     p = Page.objects.get_or_create(category=cat, title=title)[0]
