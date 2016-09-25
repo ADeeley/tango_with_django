@@ -1,14 +1,9 @@
 from django.test import TestCase
 from rango.models import Category
 from django.core.urlresolvers import reverse
-from rango.models import Category
 
-def add_cat(name, views, likes):
-        c = Category.objects.get_or_create(name=name)[0]
-        c.views=views
-        c.likes=likes
-        c.save()
-        return c
+
+
 
 class CategoryMethodTests(TestCase):
     def test_ensure_views_are_positive(self):
@@ -25,17 +20,24 @@ class CategoryMethodTests(TestCase):
             cat.views = 0
             result = self.assertEqual((cat.views >=0), True)    
 
-def test_slug_line_creation(self):
-    """
-    slug_line_creation checks to make sure that when we add a category, that 
-    an appropriate slug line is created.
-    i.e. "Random Category String" -> "random-category-string"
-    """
-    cat = cat('Random Category String')
-    cat.save()
-    self.assertEqual(cat.slug, 'random-category-string')
+    def test_slug_line_creation(self):
+        """
+        slug_line_creation checks to make sure that when we add a category, that 
+        an appropriate slug line is created.
+        i.e. "Random Category String" -> "random-category-string"
+        """
+        cat = cat('Random Category String')
+        cat.save()
+        self.assertEqual(cat.slug, 'random-category-string')
     
 def IndexViewTest(TestCase):
+
+    def add_cat(name, views, likes):
+        c = Category.objects.get_or_create(name=name)[0]
+        c.views=views
+        c.likes=likes
+        c.save()
+        return c
     
     def text_index_view_with_no_categories(self):
         """
@@ -45,10 +47,17 @@ def IndexViewTest(TestCase):
         self.assertEqual(response.status_code, 200) # code 200 is returned OK
         self.assertContains(response, "There are no categories present.")
         self.assertQuerysetEqual(response.context['categories'], [])
-        
+    
+    def add_cat(name, views, likes):
+        c = Category.objects.get_or_create(name=name)[0]
+        c.views = views
+        c.likes = likes
+        c.save()
+        return c
+    
     def test_index_view_with_categories(self):
         """
-        If no questions exist, an appropriate message should be displayes.
+        If no questions exist, an appropriate message should be displays.
         """
         
         add_cat('test',1,1)
