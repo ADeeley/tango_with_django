@@ -13,8 +13,12 @@ class CategoryMethodTests(TestCase):
         """
         cat = Category(name='test', views=-1, likes=0)
         cat.save()
+        print("views", cat.views)
         
-        #checks if views are >= 0 and reverts views to 0 if not.
+        self.assertEqual((cat.views >= 0), True)
+        
+
+    #    checks if views are >= 0 and reverts views to 0 if not. My code
         result = cat.views >=0 
         if not result:
             cat.views = 0

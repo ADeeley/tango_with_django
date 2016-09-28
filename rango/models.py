@@ -7,6 +7,19 @@ class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
+
+    
+    def save(self, *args, **kwargs):
+        """
+        modifies the save function to check if the value for views is less than 
+        0 and updates the value to 0 if so.
+        self.views - self refers to the instance of the object ("cat" in this case)
+        https://docs.djangoproject.com/en/1.10/topics/db/models/
+        """
+        if self.views < 0:
+            self.views = 0
+        super(Category, self).save(*args, **kwargs)
+            
     
     class Meta:
         verbose_name_plural = 'categories'
@@ -22,3 +35,4 @@ class Page(models.Model):
     
     def __str__(self):
         return self.title
+  
