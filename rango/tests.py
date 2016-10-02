@@ -47,22 +47,27 @@ class IndexViewTest(TestCase):
         
         
         
-    # def test_index_view_with_categories(self):
-        # """
-        # If no questions exist, an appropriate message should be displays.
-        # """
+    def test_index_view_with_categories(self):
+        """
+        If no questions exist, an appropriate message should be displays.
+        """
         
-        # self.add_cat('test',1,1)
-        # self.add_cat('temp',1,1)
-        # self.add_cat('tmp',1,1)
-        # self.add_cat('tmp test temp',1,1)
+        self.add_cat('test',1,1)
+        self.add_cat('temp',1,1)
+        self.add_cat('tmp',1,1)
+        self.add_cat('tmp test temp',1,1)
+
+        response = self.client.get(reverse('index'))
+        self.assertEqual(response.status_code, 200)
         
-        # response = self.client.get(reverse('index'))
-        # self.assertEqual(response.status_code, 200)
-        # self.assertContains(response, "tmp test temp")
+        cat = Category.objects.all()
+        print("cat: ", cat[0], cat[1],cat[2],cat[3], "catlen: ", len(cat))
+        print("***Response: ", response.context)
+        
+        self.assertContains(response, "tmp test temp")
     
-        # num_cats = len(response.context['categories'])
-        # self.assertEqual(num_cats, 4)
+        num_cats = len(response.context['categories'])
+        self.assertEqual(num_cats, 4)
 
 
          

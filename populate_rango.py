@@ -31,10 +31,19 @@ def populate():
          "url": "http//flask.pocoo.org"},
         {"title": "Learn Python the Hard Way",
          "url": "http://learnpythonthehardway.org/"}]
+ 
+    random_pages = [
+        {"title": "Reddit",
+         "url": "http://reddit.com"},
+        {"title": "google",
+         "url": "http//google.com"},
+        {"title": "wimp",
+         "url": "http://wimp.com"}]
 
     cats = {"Python": {"pages": python_pages, "views": 128, "likes": 64},
             "Django": {"pages": django_pages, "views": 64, "likes": 32},
-            "Other Frameworks": {"pages": other_pages,  "views": 32, "likes": 16}}
+            "Other Frameworks": {"pages": other_pages,  "views": 32, "likes": 16},
+            "Random Sites": {"pages": random_pages,  "views": 16, "likes": 8}}
             
             
     for cat, cat_data in cats.items(): 
@@ -53,7 +62,7 @@ def add_page(cat, title, url):
     return p
     
 def add_cat(name, views, likes): # added views and likes here
-    c = Category.objects.get_or_create(name=name)[0] # something probably goes here
+    c = Category.objects.get_or_create(name=name)[0] 
     c.views = views
     c.likes = likes
     c.save()
