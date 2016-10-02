@@ -40,9 +40,12 @@ class IndexViewTest(TestCase):
         If no questions exist, an appropriate message should be displayed.
         """
         response = self.client.get(reverse('index'))
-        self.assertEqual(response.status_code, 200) # code 200 is returned OK
+        self.assertEqual(response.status_code, 200) # code 200 is returned OK#
         self.assertContains(response, "There are no categories present.")
+        # currently returns: ..<HttpResponse status_code=200, "text/html; charset=utf-8">
         self.assertQuerysetEqual(response.context['categories'], [])
+        
+        
         
     # def test_index_view_with_categories(self):
         # """
