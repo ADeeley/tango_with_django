@@ -61,8 +61,7 @@ class IndexViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         
         cat = Category.objects.all()
-        print("cat: ", cat[0], cat[1],cat[2],cat[3], "catlen: ", len(cat))
-        print("***Response: ", response.context)
+
         
         self.assertContains(response, "tmp test temp")
     
