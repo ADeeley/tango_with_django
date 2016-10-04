@@ -68,6 +68,22 @@ class IndexViewTest(TestCase):
         num_cats = len(response.context['categories'])
         self.assertEqual(num_cats, 4)
 
+    def test_index_view_shows_top_five(self):
+        """
+        Checks if the top 5 views are shown and in the correct order
+        """
+        
+        self.add_cat('First place',1,1)
+        self.add_cat('Second place',1,2)
+        self.add_cat('Third place',1,3)
+        self.add_cat('Fourth place',1,4)
+        self.add_cat('Fifth place',1,5)
+        self.add_cat('Sixth place',1,0)
 
+        response = self.client.get(reverse('index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "First place")
+        self.assertContains(response, "Fifth place")
+   
          
         
