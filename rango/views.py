@@ -32,11 +32,13 @@ def show_category(request, category_name_slug):
     
     #go render the response and return it to the client
     return render(request, 'rango/category.html', context_dict)
-        
 
+        
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
-    context_dict = {'categories': category_list}
+    page_list = Page.objects.order_by('-views')[:5]
+    context_dict = {'categories': category_list,
+                    'pages': page_list}
                           
     # render the response and send it back!
     return render(request, 'rango/index.html', context=context_dict)
